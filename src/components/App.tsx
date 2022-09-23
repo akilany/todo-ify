@@ -8,17 +8,17 @@ const App: React.FC = () => {
     {
       id: 1,
       title: "Pay Bills",
-      type: "incomplete",
+      checked: false,
     },
     {
       id: 2,
       title: "Go Shopping",
-      type: "incomplete",
+      checked: false,
     },
     {
       id: 3,
       title: "See the Doctor",
-      type: "completed",
+      checked: true,
     },
   ]);
   const [error, setError] = useState<string>("");
@@ -32,7 +32,7 @@ const App: React.FC = () => {
     const newTask: ITask = {
       id: tasks[tasks.length - 1]?.id + 1 || 1,
       title: task,
-      type: "incomplete",
+      checked: false,
     };
 
     setError("");
@@ -40,16 +40,20 @@ const App: React.FC = () => {
     setTasks([...tasks, newTask]);
   };
 
+  const updateTaskType = (id: number): void => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) return { ...task, checked: !task.checked };
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
   const deleteTask = (id: number): void =>
     setTasks(tasks.filter((task) => task.id !== id));
 
-  const incompletedTasks: Array<ITask> = tasks.filter(
-    (task) => task.type === "incomplete"
-  );
+  const incompletedTasks: Array<ITask> = tasks.filter((task) => !task.checked);
 
-  const completedTasks: Array<ITask> = tasks.filter(
-    (task) => task.type === "completed"
-  );
+  const completedTasks: Array<ITask> = tasks.filter((task) => !!task.checked);
 
   return (
     <div className="container">
@@ -72,15 +76,19 @@ const App: React.FC = () => {
         title="Todo"
         category="incomplete-tasks"
         tasks={incompletedTasks}
+        handleUpdateTaskType={updateTaskType}
         handleDeleteTask={deleteTask}
       />
 
-      <Category
-        title="Completed"
-        category="completed-tasks"
-        tasks={completedTasks}
-        handleDeleteTask={deleteTask}
-      />
+      {!!completedTasks?.length && (
+        <Category
+          title="Completed"
+          category="completed-tasks"
+          tasks={completedTasks}
+          handleUpdateTaskType={updateTaskType}
+          handleDeleteTask={deleteTask}
+        />
+      )}
     </div>
   );
 };

@@ -117,6 +117,7 @@ li {
   overflow: hidden;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
+  animation: translateAndfade 0.5s ease-out;
 }
 
 li > input[type="checkbox"] {
