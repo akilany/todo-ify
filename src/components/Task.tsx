@@ -3,9 +3,9 @@ import { ITask } from "../interfaces";
 
 interface Props {
   task: ITask;
-  handleUpdateTaskTitle: Function;
-  handleUpdateTaskType: Function;
-  handleDeleteTask: Function;
+  handleUpdateTaskTitle: (id: number, title: string) => void;
+  handleUpdateTaskType: (id: number) => void;
+  handleDeleteTask: (id: number) => void;
 }
 
 const Task: React.FC<Props> = ({

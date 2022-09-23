@@ -6,9 +6,9 @@ interface Props {
   title: string;
   categoryName?: string;
   tasks: Array<ITask>;
-  handleUpdateTaskTitle: Function;
-  handleUpdateTaskType: Function;
-  handleDeleteTask: Function;
+  handleUpdateTaskTitle: (id: number, title: string) => void;
+  handleUpdateTaskType: (id: number) => void;
+  handleDeleteTask: (id: number) => void;
 }
 
 const Category: React.FC<Props> = ({
