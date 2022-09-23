@@ -4,7 +4,7 @@ import { ITask } from "../interfaces";
 
 interface Props {
   title: string;
-  category: string;
+  categoryName?: string;
   tasks: Array<ITask>;
   handleUpdateTaskTitle: Function;
   handleUpdateTaskType: Function;
@@ -13,7 +13,7 @@ interface Props {
 
 const Category: React.FC<Props> = ({
   title,
-  category,
+  categoryName,
   tasks,
   handleUpdateTaskTitle,
   handleUpdateTaskType,
@@ -34,7 +34,7 @@ const Category: React.FC<Props> = ({
   return (
     <React.Fragment>
       <h3>{title}</h3>
-      <ul id={category}>{renderedTasks}</ul>
+      <ul id={categoryName}>{renderedTasks}</ul>
     </React.Fragment>
   );
 };

@@ -84,7 +84,7 @@ const App: React.FC = () => {
       {!!incompletedTasks?.length && (
         <Category
           title="Todo"
-          category="incomplete-tasks"
+          categoryName="incomplete-tasks"
           tasks={incompletedTasks}
           handleUpdateTaskTitle={updateTaskTitle}
           handleUpdateTaskType={updateTaskType}
@@ -95,7 +95,7 @@ const App: React.FC = () => {
       {!!completedTasks?.length && (
         <Category
           title="Completed"
-          category="completed-tasks"
+          categoryName="completed-tasks"
           tasks={completedTasks}
           handleUpdateTaskTitle={updateTaskTitle}
           handleUpdateTaskType={updateTaskType}
