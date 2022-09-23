@@ -1,23 +1,26 @@
 import React from "react";
+import Task from "./Task";
 import { ITask } from "../interfaces";
 
-const Category = ({
-  title,
-  category,
-  tasks,
-}: {
+interface Props {
   title: string;
   category: string;
   tasks: Array<ITask>;
-}) => {
-  const renderedTasks = tasks.map((task, index) => (
-    <li key={index}>
-      <input type="checkbox" />
-      <label>{task.title}</label>
-      <input type="text" />
-      <button className="edit">Edit</button>
-      <button className="delete">Delete</button>
-    </li>
+  handleDeleteTask: Function;
+}
+
+const Category: React.FC<Props> = ({
+  title,
+  category,
+  tasks,
+  handleDeleteTask,
+}: Props) => {
+  const renderedTasks = tasks.map((task) => (
+    <Task
+      key={task.id}
+      task={task}
+      handleDeleteTask={(id: number) => handleDeleteTask(id)}
+    />
   ));
   return (
     <div>
