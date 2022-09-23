@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import Category from "./Category";
 import { ITask } from "../interfaces";
 
@@ -40,6 +40,14 @@ const App: React.FC = () => {
     setTasks([...tasks, newTask]);
   };
 
+  const updateTaskTitle = (id: number, title: string): void => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) return { ...task, title };
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
   const updateTaskType = (id: number): void => {
     const updatedTasks = tasks.map((task) => {
       if (task.id === id) return { ...task, checked: !task.checked };
@@ -72,19 +80,23 @@ const App: React.FC = () => {
 
       {error && <div className="error-message">{error}</div>}
 
-      <Category
-        title="Todo"
-        category="incomplete-tasks"
-        tasks={incompletedTasks}
-        handleUpdateTaskType={updateTaskType}
-        handleDeleteTask={deleteTask}
-      />
+      {!!incompletedTasks?.length && (
+        <Category
+          title="Todo"
+          category="incomplete-tasks"
+          tasks={incompletedTasks}
+          handleUpdateTaskTitle={updateTaskTitle}
+          handleUpdateTaskType={updateTaskType}
+          handleDeleteTask={deleteTask}
+        />
+      )}
 
       {!!completedTasks?.length && (
         <Category
           title="Completed"
           category="completed-tasks"
           tasks={completedTasks}
+          handleUpdateTaskTitle={updateTaskTitle}
           handleUpdateTaskType={updateTaskType}
           handleDeleteTask={deleteTask}
         />

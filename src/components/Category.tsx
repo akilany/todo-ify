@@ -6,6 +6,7 @@ interface Props {
   title: string;
   category: string;
   tasks: Array<ITask>;
+  handleUpdateTaskTitle: Function;
   handleUpdateTaskType: Function;
   handleDeleteTask: Function;
 }
@@ -14,6 +15,7 @@ const Category: React.FC<Props> = ({
   title,
   category,
   tasks,
+  handleUpdateTaskTitle,
   handleUpdateTaskType,
   handleDeleteTask,
 }: Props) => {
@@ -21,16 +23,19 @@ const Category: React.FC<Props> = ({
     <Task
       key={task.id}
       task={task}
-      handleUpdateTaskTitle={() => {}}
+      handleUpdateTaskTitle={(id: number, title: string) =>
+        handleUpdateTaskTitle(id, title)
+      }
       handleUpdateTaskType={(id: number) => handleUpdateTaskType(id)}
       handleDeleteTask={(id: number) => handleDeleteTask(id)}
     />
   ));
+
   return (
-    <div>
+    <React.Fragment>
       <h3>{title}</h3>
       <ul id={category}>{renderedTasks}</ul>
-    </div>
+    </React.Fragment>
   );
 };
 

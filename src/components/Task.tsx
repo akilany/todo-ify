@@ -14,19 +14,44 @@ const Task: React.FC<Props> = ({
   handleUpdateTaskType,
   handleDeleteTask,
 }: Props) => {
-  const updateTaskTitle = (): void => {};
+  const [taskTitle, setTaskTitle] = useState<string>(task.title);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
-  const updateTaskType = (): void => handleUpdateTaskType(task.id);
+  const handleTaskTitleChange = (e: ChangeEvent<HTMLInputElement>): void =>
+    setTaskTitle(e.target.value);
 
-  const deleteTask = (): void => handleDeleteTask(task.id);
+  const updateTaskTitle = (): void => {
+    setEditMode(!editMode);
+    handleUpdateTaskTitle(task.id, taskTitle);
+  };
 
   return (
     <li>
-      <input type="checkbox" checked={task.checked} onChange={updateTaskType} />
-      <label>{task.title}</label>
-      <input type="text" value={task.title} onChange={updateTaskTitle} />
-      <button className="edit">Edit</button>
-      <button className="delete" onClick={deleteTask}>
+      <input
+        type="checkbox"
+        checked={task.checked}
+        onChange={(): void => handleUpdateTaskType(task.id)}
+      />
+
+      {editMode ? (
+        <input
+          type="text"
+          name="task-title"
+          value={taskTitle}
+          onChange={handleTaskTitleChange}
+        />
+      ) : (
+        <label>{taskTitle}</label>
+      )}
+
+      <button className="edit" onClick={updateTaskTitle}>
+        Edit
+      </button>
+
+      <button
+        className="delete"
+        onClick={(): void => handleDeleteTask(task.id)}
+      >
         Delete
       </button>
     </li>
