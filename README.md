@@ -1,4 +1,4 @@
-# MyReads App
+# Todo-ify App
 
 Todo-ify App to manage all your tasks allows you to add and update tasks in your todo list.
 
