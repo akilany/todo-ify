@@ -71,6 +71,7 @@ const App: React.FC = () => {
         <input
           id="new-task"
           type="text"
+          placeholder="Title"
           value={task}
           onChange={handleTaskTitleChange}
           className={error && "error"}
