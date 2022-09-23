@@ -160,3 +160,26 @@ ul li.editMode input[type="text"] {
 ul li.editMode label {
   display: none;
 }
+
+/* Error Message */
+
+input.error {
+  border-color: #cf2323;
+  transition: border 0.3s ease-out;
+}
+
+.error-message {
+  color: #cf2323;
+  animation: translateAndfade 0.3s ease-out;
+}
+
+@keyframes translateAndfade {
+  0% {
+    opacity: 0.6;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

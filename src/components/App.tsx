@@ -21,6 +21,27 @@ const App: React.FC = () => {
       type: "completed",
     },
   ]);
+  const [error, setError] = useState<string>("");
+
+  const handleTaskTitleChange = (e: ChangeEvent<HTMLInputElement>): void =>
+    setTask(e.target.value);
+
+  const addNewTask = (): void => {
+    if (!task) return setError("Please add a title to the task");
+
+    const newTask: ITask = {
+      id: tasks[tasks.length - 1]?.id + 1 || 1,
+      title: task,
+      type: "incomplete",
+    };
+
+    setError("");
+    setTask("");
+    setTasks([...tasks, newTask]);
+  };
+
+  const deleteTask = (id: number): void =>
+    setTasks(tasks.filter((task) => task.id !== id));
 
   const incompletedTasks: Array<ITask> = tasks.filter(
     (task) => task.type === "incomplete"
@@ -30,31 +51,22 @@ const App: React.FC = () => {
     (task) => task.type === "completed"
   );
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void =>
-    setTask(e.target.value);
-
-  const addNewTask = (): void => {
-    const newTask: ITask = {
-      id: tasks[tasks.length - 1]?.id + 1 || 1,
-      title: task,
-      type: "incomplete",
-    };
-
-    setTask("");
-    setTasks([...tasks, newTask]);
-  };
-
-  const deleteTask = (id: number): void =>
-    setTasks(tasks.filter((task) => task.id !== id));
-
   return (
     <div className="container">
       <h2>TODO LIST</h2>
       <h3>Add Item</h3>
       <p>
-        <input id="new-task" type="text" value={task} onChange={handleChange} />
+        <input
+          id="new-task"
+          type="text"
+          value={task}
+          onChange={handleTaskTitleChange}
+          className={error && "error"}
+        />
         <button onClick={addNewTask}>Add</button>
       </p>
+
+      {error && <div className="error-message">{error}</div>}
 
       <Category
         title="Todo"
