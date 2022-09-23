@@ -45,7 +45,7 @@ const Task: React.FC<Props> = ({
       )}
 
       <button className="edit" onClick={updateTaskTitle}>
-        Edit
+        {!editMode ? "Edit" : "Confirm"}
       </button>
 
       <button
